@@ -58,7 +58,7 @@ def get_logger() -> logging.Logger:
 
     stream_handler = logging.StreamHandler()
     stream_handler.setFormatter(formatter)
-    user_data.setStreamHandler(stream_handler)
+    user_data.addHandler(stream_handler)
     return user_data
 
 
