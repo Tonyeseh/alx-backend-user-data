@@ -1,7 +1,5 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """auth module"""
-
-from flask import request
 from typing import List, TypeVar
 
 
@@ -29,7 +27,7 @@ class Auth:
         return True
 
     def authorization_header(self, request=None) -> str:
-        """returns None for now"""
+        """returns the value in the Authorization header of the request"""
         if not request:
             return None
 
