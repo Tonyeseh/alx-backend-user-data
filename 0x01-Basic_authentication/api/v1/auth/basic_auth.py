@@ -31,8 +31,8 @@ class BasicAuth(Auth):
         """returns the user email and password from the base64 decoded value"""
         if decoded_base64_authorization_header and isinstance(decoded_base64_authorization_header, str):
             cred = decoded_base64_authorization_header.split(':')
-            if len(cred) == 2:
-                return cred[0], cred[1]
+            if len(cred) >= 2:
+                return cred[0], ':'.join(cred[1:])
         return (None, None)
     
 
@@ -62,7 +62,7 @@ class BasicAuth(Auth):
 
                     if decoded_header:
                         credentials = self.extract_user_credentials(decoded_header)
-
+                        print(credentials)
                         if all(credentials):
                             user = self.user_object_from_credentials(*credentials)
 
