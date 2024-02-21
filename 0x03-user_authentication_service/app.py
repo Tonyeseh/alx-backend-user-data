@@ -21,8 +21,6 @@ def users():
     """registers a new user"""
     try:
         rj = request.form
-        print(request.get_json())
-        print(rj)
         if rj.get('email', None) is None:
             raise ValueError("No email address")
         if rj.get('password', None) is None:
@@ -36,10 +34,9 @@ def users():
                     {"email": user.email, "message": "user created"})
 
         except ValueError:
-            return jsonify({"message": "email already registered"})
+            return jsonify({"message": "email already registered"}), 400
 
     except Exception as err:
-        print(err)
         return jsonify({"message": "Invalid payload"}), 400
 
 
@@ -84,7 +81,7 @@ def logout():
 
         if user:
             AUTH.destroy_session(user.id)
-            redirect('/')
+            return redirect('/')
 
     abort(403)
 
@@ -113,7 +110,7 @@ def get_reset_password_token():
         try:
             token = AUTH.get_reset_password_token(email)
 
-            return jsonify({"email": email, "token": token})
+            return jsonify({"email": email, "reset_token": token})
 
         except ValueError:
             pass
@@ -130,7 +127,7 @@ def update_password():
     reset_token = rf.get('reset_token')
     new_password = rf.get('new_password')
 
-    if all(new_password, email, reset_token):
+    if all([new_password, email, reset_token]):
         try:
             AUTH.update_password(reset_token, new_password)
 
@@ -138,6 +135,8 @@ def update_password():
 
         except Exception as e:
             pass
+
+    abort(403)
 
 
 if __name__ == '__main__':

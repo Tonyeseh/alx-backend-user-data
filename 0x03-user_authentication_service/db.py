@@ -19,7 +19,6 @@ class DB:
         """
         self._engine = create_engine(
             "sqlite:///a.db",
-            echo=True,
             connect_args={
                 "check_same_thread": False})
         Base.metadata.drop_all(self._engine, )
