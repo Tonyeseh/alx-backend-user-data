@@ -18,9 +18,7 @@ class DB:
         """Initialize a new DB instance
         """
         self._engine = create_engine(
-            "sqlite:///a.db",
-            connect_args={
-                "check_same_thread": False})
+            "sqlite:///a.db")
         Base.metadata.drop_all(self._engine, )
         Base.metadata.create_all(self._engine)
         self.__session = None
