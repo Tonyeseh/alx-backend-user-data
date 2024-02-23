@@ -40,7 +40,7 @@ class DB:
 
         return user
 
-    def find_user_by(self, **kwargs: dict) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """returns the first row found in users table filtered by kwargs"""
         result = self._session.query(User).filter_by(**kwargs).first()
 
@@ -48,7 +48,7 @@ class DB:
             raise NoResultFound("No Result was found")
         return result
 
-    def update_user(self, user_id: int, **kwargs: dict) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """updates the user with the given user_id"""
         user = self.find_user_by(id=user_id)
 
