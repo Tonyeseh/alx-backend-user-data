@@ -40,7 +40,7 @@ class DB:
 
         return user
 
-    def find_user_by(self, **kwargs: dict):
+    def find_user_by(self, **kwargs: dict) -> User:
         """returns the first row found in users table filtered by kwargs"""
         result = self._session.query(User).filter_by(**kwargs).first()
 
